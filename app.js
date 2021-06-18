@@ -1,3 +1,5 @@
+//Create dice image with a mulitdimensional array. 9 block grid representing dots that we want to color in that represent a color.
+const diceImg = [[5], [1, 9], [1, 5, 9], [1, 3, 7, 9], [1, 3, 5, 7, 9], [1, 2, 3, 7, 8, 9]]
 //Create a button.
 const btn = document.createElement('button');
 btn.textContent = "Roll";
@@ -25,6 +27,40 @@ area1.textContent = "Dice 1"
 area2.textContent = "Dice 2"
 addBorders(area1)
 addBorders(area2)
+
+//Add event listeners
+btn.addEventListener("click", function () {
+    roll();
+    console.log(area1.val)
+    console.log(area2.val)
+})
+
+//Creat function that generates dice
+function diceGen(val) {
+    //construct html that we are returning
+    let html = '<div>';
+    let tempArray = diceImg[val];
+    //loop through our array
+    for (let i = 1; i < 10; i++) {
+        if (tempArray.includes(i)) {
+            html += '<span style="width:33%; display:inline:block">x</span>'
+        } else {
+            html += '<span style="width:33%; display:inline:block"> </span>'
+        }
+    }
+    //append div element to html
+    html += '<div>'
+    return val;
+}
+
+// Create a function that rolls a value for dice in areas
+function roll() {
+    area1.val = Math.floor(Math.random() * 6);
+    area2.val = Math.floor(Math.random() * 6);
+    //Update content of areas
+    area1.innerHTML = diceGen(area1.val);
+    area2.innerHTML = diceGen(area2.val);
+}
 
 //Add borders to areas for dice using a function
 function addBorders(element) {
